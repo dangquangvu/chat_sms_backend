@@ -1,5 +1,5 @@
 GET http://localhost:3334/admin/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmd2dTk5ODFAZ21haWwuY29tIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTU3ODM4MjMzOSwiZXhwIjoxNTc4Mzg1OTM5fQ.7gqzBans3WVT02rDeCAtK0ODmWySTctVpMCGy-ipU6M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsbmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRlQVZRQnhLTkRHUXBWTmtlUDVVN2EuMTcyRkFWLzdSdEs3M1R6b2tFRERENnRtUWgzQ3JkeSIsInJvbGUiOiJhZG1pbiIsIl9pZCI6IjVlMTQ0NzlmNDk3MzdhMjlkMGVjZmRlNyIsImlhdCI6MTU3ODM5MTEyMCwiZXhwIjoxNTc4Mzk0NzIwfQ.UGTg1Sx2cyisK7Xk3peQMq1ZMcDqQ4IZYE-jZ3hccWc
 
 
 ###
@@ -7,8 +7,8 @@ POST http://localhost:3334/admin/
 Content-Type: application/json
 
 {
-    "email" : "dangvu9981@gmail.com",
-    "password": "admin"
+    "email" : "admin@gmail.com",
+    "password": "admin123"
 }
 ###
 GET  http://localhost:3334/admin/init
@@ -18,7 +18,8 @@ POST http://localhost:3334/admin/init
 Content-Type: application/json
 
 {
-    "fullname": "dang tuan phat",
-    "email": "dangvu9981@gmail.com",
-    "password": "admin"
+    "fullname": "dang quang vu",
+    "email": "dangquangvu999@gmail.com",
+    "password": "admin",
+    "role": "user"
 }
