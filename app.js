@@ -1,16 +1,16 @@
 var createError = require("http-errors");
 var express = require("express");
+// var http = require("http");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 var logger = require("morgan");
 let cors = require("cors");
+var app = express();
+var http = require("http").Server(app);
 
 var indexRouter = require("./routes/index");
-
-var app = express();
-
-app.use(cors());
+app.use(cors({ origin: "*" }));
 mongoose
     .connect("mongodb://127.0.0.1:27017/musicSystem", {
         useUnifiedTopology: true,
@@ -24,10 +24,13 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", ["http://localhost:3335"]);
+    res.header("Access-Control-Allow-Credentials: true");
+
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
     res.header(
         "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
+        "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json,Authorization"
     );
     next();
 });
@@ -42,7 +45,7 @@ app.use("/", indexRouter);
 app.use(function(req, res, next) {
     next(createError(404));
 });
-
+// var server = app.listen(3335);
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development

@@ -87,3 +87,9 @@ function onListening() {
     debug("Listening on " + bind);
     console.log("server is listening :" + port);
 }
+const io = require("socket.io")(server);
+
+io.origins(["https://localhost:3335"]);
+io.on("connection", function(socket) {
+    console.log("connect");
+});
