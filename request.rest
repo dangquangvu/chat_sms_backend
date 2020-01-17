@@ -1,9 +1,8 @@
-GET http://localhost:3334/admin/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsbmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRlQVZRQnhLTkRHUXBWTmtlUDVVN2EuMTcyRkFWLzdSdEs3M1R6b2tFRERENnRtUWgzQ3JkeSIsInJvbGUiOiJhZG1pbiIsIl9pZCI6IjVlMTQ0NzlmNDk3MzdhMjlkMGVjZmRlNyIsImlhdCI6MTU3ODM5MTEyMCwiZXhwIjoxNTc4Mzk0NzIwfQ.UGTg1Sx2cyisK7Xk3peQMq1ZMcDqQ4IZYE-jZ3hccWc
-
+GET http://localhost:3335/admin/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsbmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRlQVZRQnhLTkRHUXBWTmtlUDVVN2EuMTcyRkFWLzdSdEs3M1R6b2tFRERENnRtUWgzQ3JkeSIsInJvbGUiOiJhZG1pbiIsIl9pZCI6IjVlMTQ0NzlmNDk3MzdhMjlkMGVjZmRlNyIsImlhdCI6MTU3OTE2MjAzMSwiZXhwIjoxNTc5MTgwMDMxfQ.cNQ0QrGZHYUiDK5hfRRkipuItFup18gFKCM3Q8zTh7I
 
 ###
-POST http://localhost:3334/admin/
+POST http://localhost:3335/admin/
 Content-Type: application/json
 
 {
@@ -11,10 +10,10 @@ Content-Type: application/json
     "password": "admin123"
 }
 ###
-GET  http://localhost:3334/admin/init
+GET  http://localhost:3335/admin/init
 
 ###
-POST http://localhost:3334/admin/init
+POST http://localhost:3335/admin/init
 Content-Type: application/json
 
 {
@@ -23,3 +22,6 @@ Content-Type: application/json
     "password": "admin",
     "role": "user"
 }
+
+###
+GET  http://localhost:3335/admin/test

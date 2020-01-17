@@ -60,9 +60,5 @@ UserSchema.methods.comparePassword = function(candidatePassword) {
         });
     });
 };
-// UserSchema.methods.comparePassword = function(password) {
-//     console.log(this.password);
-//     console.log(bcrypt.hashSync(password, this.SALT_WORK_FACTOR));
-//     return this.password === bcrypt.hashSync(password, this.SALT_WORK_FACTOR);
-// };
+
 module.exports = mongoose.model("User", UserSchema);

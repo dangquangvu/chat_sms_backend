@@ -18,54 +18,62 @@ const arrUser = [{
 ];
 module.exports = {
     getLogin: (req, res) => {
-        // console.log(req.user);
+        console.log(req.user);
+
         return res.status(200).json({
             message: req.user
         });
         //arrUser.filter(user => user.email === req.user.email)
     },
     postLogin: async(req, res) => {
+        if (!req.body.email || !req.body.password)
+            return res.status(404).json({ message: "field not blank!" });
         const email = req.body.email;
         const password = req.body.password;
-        try {
-            let indentify = User.findOne;
-            let user = await UserModel.findByEmail(email);
-            let comparePassword;
-            console.log(user);
-            if (!user) {
-                return res.status(400).json({ message: "Account doesnt exists" });
-            }
-            await user.comparePassword(password).then(data => {
-                comparePassword = data;
-            });
+        if (email && password) {
+            try {
+                let indentify = User.findOne;
+                let user = await UserModel.findByEmail(email);
+                let comparePassword;
+                console.log(user);
+                if (!user) {
+                    return res.status(400).json({ message: "Account doesnt exists" });
+                }
+                await user.comparePassword(password).then(data => {
+                    comparePassword = data;
+                });
 
-            if (!comparePassword) {
+                if (!comparePassword) {
+                    return res.status(404).json({
+                        message: "Incorrect username and password"
+                    });
+                }
+                const _user = {
+                    fullname: user.fullname,
+                    email: user.email,
+                    password: user.password,
+                    role: user.role,
+                    _id: user._id
+                };
+                let accessToken = auth.generateAccessToken(_user);
+                let refreshToken = jwt.sign(_user, process.env.Refresh_token);
+                // req.user = _user;
+                // res.cookie("access_token", accessToken, {
+                //     maxAge: 1800,
+                //     httpOnly: true
+                //         //secure: true;
+                // });
+                return res.status(200).json({
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                    user: _user
+                });
+            } catch (error) {
+                console.log(error);
                 return res.status(404).json({
-                    message: "Incorrect username and password"
+                    message: "error!"
                 });
             }
-            const _user = {
-                fullname: user.fullname,
-                email: user.email,
-                password: user.password,
-                role: user.role,
-                _id: user._id
-            };
-            let accessToken = auth.generateAccessToken(_user);
-            let refreshToken = jwt.sign(_user, process.env.Refresh_token);
-            res.cookie("access_token", accessToken, {
-                maxAge: 1800,
-                httpOnly: true
-                    //secure: true;
-            });
-            return res
-                .status(200)
-                .json({ accessToken: accessToken, refreshToken: refreshToken });
-        } catch (error) {
-            console.log(error);
-            return res.status(404).json({
-                message: "error!"
-            });
         }
     },
     init: async(req, res, next) => {
@@ -84,9 +92,12 @@ module.exports = {
             if (!admin) {
                 let user = new User(userInit);
                 await user.save();
+                return res.status(200).json({
+                    message: "create user ok!"
+                });
             }
-            return res.status(200).json({
-                message: "create user ok!"
+            return res.status(400).json({
+                message: "user exist!"
             });
         } catch (err) {
             return res.status(404).json({
@@ -118,7 +129,28 @@ module.exports = {
         } catch (err) {
             return res.status(404).json({ message: "create user error!" });
         }
+    },
+    test: (req, res) => {
+        return res.status(200).json({ message: "ok" });
+    },
+    verifyToken: (req, res) => {
+        const token = req.body.token;
+        if (token == null)
+            return res.status(404).json({
+                message: "not found!"
+            });
+
+        jwt.verify(token, process.env.Secret_jwt, (err, user) => {
+            if (err) {
+                return res.status(404).json({
+                    message: "error"
+                });
+            }
+            console.log(user);
+            return res.status(200).json({
+                user: user,
+                token: token
+            });
+        });
     }
 };
-
-// require('crypto').randomBytes(64).toString('hex')
