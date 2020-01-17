@@ -21,7 +21,8 @@ const UserSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ["admin", "user"]
+        enum: ["admin", "user"],
+        default: "user"
     },
     created: {
         type: Date,
@@ -30,6 +31,14 @@ const UserSchema = new Schema({
     updated: {
         type: Date,
         default: Date.now()
+    },
+    friend: {
+        type: Object,
+        default: []
+    },
+    img: {
+        type: String,
+        default: ""
     }
 }, { usePushEach: true });
 UserSchema.pre("save", function(next) {

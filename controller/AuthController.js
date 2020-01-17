@@ -1,4 +1,4 @@
-const { User } = require("../schema/index");
+// const { User } = require("../schema/index");
 const auth = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
 const { UserModel } = require("../model");
@@ -17,6 +17,40 @@ const arrUser = [{
     }
 ];
 module.exports = {
+    signIn: async(req, res) => {
+        if (!req.body.email || !req.body.password || !req.body.fullname)
+            return res.status(404).json({ message: "field not blank!" });
+        const email = req.body.email;
+        const password = req.body.password;
+        const fullname = req.body.fullname;
+        if (email) {
+            try {
+                let user = await UserModel.findByEmail(email);
+                if (user) {
+                    return res.status(400).json({ message: "Account did exists" });
+                }
+                const _user = {
+                    fullname: fullname,
+                    email: email,
+                    password: password
+                };
+                let createUser = await UserModel.createUser(_user);
+                console.log(createUser, 3456);
+                if (createUser) {
+                    return res.status(200).json({
+                        message: "create ok!"
+                    });
+                }
+                return res.status(404).json({
+                    message: "create user not success!"
+                });
+            } catch (error) {
+                return res.status(404).json({
+                    message: "error!"
+                });
+            }
+        }
+    },
     getLogin: (req, res) => {
         console.log(req.user);
 
@@ -32,12 +66,12 @@ module.exports = {
         const password = req.body.password;
         if (email && password) {
             try {
-                let indentify = User.findOne;
+                // let indentify = User.findOne;
                 let user = await UserModel.findByEmail(email);
                 let comparePassword;
                 console.log(user);
                 if (!user) {
-                    return res.status(400).json({ message: "Account doesnt exists" });
+                    return res.status(400).json({ message: "Account didn't exists" });
                 }
                 await user.comparePassword(password).then(data => {
                     comparePassword = data;
@@ -76,7 +110,7 @@ module.exports = {
             }
         }
     },
-    init: async(req, res, next) => {
+    init: async(req, res) => {
         let fullname = "admin";
         let email = "admin@gmail.com";
         let password = "admin123";
@@ -88,12 +122,18 @@ module.exports = {
             role: role
         };
         try {
-            let admin = await User.findOne({ email: "admin@gmail.com" });
+            let admin = await UserModel.findByEmail("admin@gmail.com");
+            console.log(admin);
             if (!admin) {
-                let user = new User(userInit);
-                await user.save();
+                let createUser = await UserModel.createUser(userInit);
+                console.log(createUser, 3456);
+                if (!createUser) {
+                    return res.status(404).json({
+                        message: "create user not success!"
+                    });
+                }
                 return res.status(200).json({
-                    message: "create user ok!"
+                    message: "create ok!"
                 });
             }
             return res.status(400).json({
@@ -103,31 +143,6 @@ module.exports = {
             return res.status(404).json({
                 message: "create user error!"
             });
-        }
-    },
-    generateUser: async(req, res, next) => {
-        let userReq = req.body;
-        console.log(userReq);
-        if (!userReq.email || !userReq.fullname || !userReq.password) {
-            return res.status(404).json({
-                message: "not field blank!"
-            });
-        }
-        try {
-            let admin = await User.findOne({ email: userReq.email });
-            if (admin == null) {
-                let _user = new User(userReq);
-                let save = await _user.save();
-                console.log(save);
-                return res.status(200).json({
-                    message: "create user ok!"
-                });
-            }
-            return res.status(404).json({
-                message: "user existed!"
-            });
-        } catch (err) {
-            return res.status(404).json({ message: "create user error!" });
         }
     },
     test: (req, res) => {

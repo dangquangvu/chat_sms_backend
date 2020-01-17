@@ -1,5 +1,5 @@
 GET http://localhost:3335/admin/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsbmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRlQVZRQnhLTkRHUXBWTmtlUDVVN2EuMTcyRkFWLzdSdEs3M1R6b2tFRERENnRtUWgzQ3JkeSIsInJvbGUiOiJhZG1pbiIsIl9pZCI6IjVlMTQ0NzlmNDk3MzdhMjlkMGVjZmRlNyIsImlhdCI6MTU3OTE2MjAzMSwiZXhwIjoxNTc5MTgwMDMxfQ.cNQ0QrGZHYUiDK5hfRRkipuItFup18gFKCM3Q8zTh7I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsbmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRoRVQ2V09sTkxFTFJZU0ZrLkk1TGF1ZGJXb2w2dEpDNmR1L2NMOWVaeUcuc1A4WGJEVkpjdSIsInJvbGUiOiJhZG1pbiIsIl9pZCI6IjVlMjE2MWU4OTBjYjE3MTNiYzYwMTgwNyIsImlhdCI6MTU3OTI0NjA2OCwiZXhwIjoxNTc5MjY0MDY4fQ.i6w-GZQJ9sJWiLc8JuPngRJ87G9wIoQL81Nfmdkri7k
 
 ###
 POST http://localhost:3335/admin/
@@ -9,19 +9,21 @@ Content-Type: application/json
     "email" : "admin@gmail.com",
     "password": "admin123"
 }
+
 ###
 GET  http://localhost:3335/admin/init
 
+
 ###
-POST http://localhost:3335/admin/init
+GET  http://localhost:3335/admin/test
+
+
+###
+POST http://localhost:3335/admin/signIn 
 Content-Type: application/json
 
 {
     "fullname": "dang quang vu",
     "email": "dangquangvu999@gmail.com",
-    "password": "admin",
-    "role": "user"
+    "password": "admin"
 }
-
-###
-GET  http://localhost:3335/admin/test

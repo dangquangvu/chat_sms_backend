@@ -22,5 +22,12 @@ module.exports = {
                 return resolve(result);
             });
         });
+    },
+
+    createUser: async function(where) {
+        let user = new User(where);
+        let data = await user.save();
+        if (!data) throw new Error("something bad happened");
+        return data;
     }
 };

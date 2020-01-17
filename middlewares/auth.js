@@ -19,7 +19,7 @@ module.exports = {
         });
     },
     generateAccessToken: user => {
-        return jwt.sign(user, process.env.Secret_jwt, { expiresIn: "5000" });
+        return jwt.sign(user, process.env.Secret_jwt, { expiresIn: "5h" });
     },
     refreshToken: async(req, res) => {}
 };
