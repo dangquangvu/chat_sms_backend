@@ -29,5 +29,15 @@ module.exports = {
         let data = await user.save();
         if (!data) throw new Error("something bad happened");
         return data;
+    },
+    findAll: () => {
+        return new Promise((resolve, reject) => {
+            User.find().exec((err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
+        });
     }
 };

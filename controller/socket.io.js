@@ -1,0 +1,33 @@
+module.exports = io => {
+    let userSockets = {};
+
+    io.on("connection", socket => {
+        console.log(socket.id);
+        socket.on("disconnect", () => {
+            let userId = userSockets[socket.id];
+            delete userSockets[socket.id];
+            if (userId) {
+                io.sockets.emit("user-offline", userId);
+            }
+        });
+        socket.on("online-ping", userId => {
+            if (userId) {
+                userSockets[socket.id] = userId;
+                socket.broadcast.emit("user-online", userId);
+                setTimeout(function() {
+                    // Send currently online users
+                    socket.emit("online-users", Object.values(userSockets));
+                }, 1000);
+            }
+        });
+        socket.on("enter-conversation", conversation => {
+            socket.join(conversation);
+        });
+        socket.on("leave-conversation", conversation => {
+            socket.leave(conversation);
+        });
+        socket.on("send-message", function(message) {
+            socket.broadcast.to(message.conversationId).emit("new-message", message);
+        });
+    });
+};

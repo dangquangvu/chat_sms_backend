@@ -167,5 +167,10 @@ module.exports = {
                 token: token
             });
         });
+    },
+    getFriend: async(req, res) => {
+        let data = await UserModel.findAll();
+        console.log(data);
+        return res.status(200).json({ data });
     }
 };

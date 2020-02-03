@@ -7,10 +7,11 @@ const mongoose = require("mongoose");
 var logger = require("morgan");
 let cors = require("cors");
 var app = express();
-var http = require("http").Server(app);
-
+// var http = require("http").Server(app);
+var http = require("http");
 var indexRouter = require("./routes/index");
-app.use(cors({ origin: "*" }));
+var socketEvents = require("./controller/socket.io");
+var allowedOrigins = "http://localhost:3000";
 mongoose
     .connect("mongodb://127.0.0.1:27017/musicSystem", {
         useUnifiedTopology: true,
@@ -19,21 +20,19 @@ mongoose
     })
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log(err));
-// view engine setup
+var port = normalizePort(process.env.PORT || "3335");
+
+app.set("port", port);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", ["http://localhost:3335"]);
-    res.header("Access-Control-Allow-Credentials: true");
+app.use(
+    cors({
+        credentials: true,
+        origin: "http://localhost:3000"
+    })
+);
 
-    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json,Authorization"
-    );
-    next();
-});
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -56,5 +55,35 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render("error");
 });
+var server = http.createServer(app);
+var io = require("socket.io").listen(server, { origins: allowedOrigins });
 
+server.listen(port, err => {
+    if (err) {
+        console.log(chalk.red("Cannot run!"));
+    } else {
+        // Socket event
+        socketEvents(io);
+        console.log("server is listening on port:", port);
+    }
+});
+// server.listen(port, () => {
+//     console.log("server is listening on port:", port);
+// });
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
 module.exports = app;
