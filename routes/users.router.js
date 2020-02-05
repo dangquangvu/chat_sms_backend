@@ -13,4 +13,5 @@ app
 app.route("/test").get(AuthController.test);
 app.route("/verifyToken").post(AuthController.verifyToken);
 app.route("/friends").get(auth.authenticateToken, AuthController.getFriend);
+app.route("/message").post(auth.authenticateToken, AuthController.getMessage);
 module.exports = app;

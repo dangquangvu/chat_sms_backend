@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 module.exports = {
     authenticateToken: (req, res, next) => {
-        console.log(req.headers["authorization"]);
+        // console.log(req.headers["authorization"]);
         const authHeader = req.headers["authorization"];
         const token = authHeader && authHeader.split(" ")[1];
         if (token == null) return res.sendStatus(401);
@@ -12,7 +12,7 @@ module.exports = {
                     message: "error"
                 });
             }
-            console.log(user);
+            // console.log(user);
             req.user = user;
             req.jwtDecode = user;
             next();

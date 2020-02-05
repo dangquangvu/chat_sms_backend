@@ -39,6 +39,10 @@ const UserSchema = new Schema({
     img: {
         type: String,
         default: ""
+    },
+    online: {
+        type: Boolean,
+        default: false
     }
 }, { usePushEach: true });
 UserSchema.pre("save", function(next) {

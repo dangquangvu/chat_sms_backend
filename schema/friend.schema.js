@@ -3,33 +3,15 @@ const moment = require("moment");
 const bcrypt = require("bcryptjs");
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-    fullname: {
-        type: String,
-        required: true,
-        trim: true
+const FriendSchema = new Schema({
+    userId: {
+        type: Schema.Types.ObjectId,
+        required: true
     },
-    email: {
-        type: String,
-        required: true,
-        trim: true,
-        match: [/.+@.+\..+/, "Địa chỉ email không hợp lệ"]
-    },
-    password: {
-        type: String
-    },
-    role: {
-        type: String,
-        enum: ["admin", "user"]
-    },
-    created: {
-        type: Date,
-        default: Date.now()
-    },
-    updated: {
-        type: Date,
-        default: Date.now()
+    friendId: {
+        type: Schema.Types.ObjectId,
+        required: true
     }
-}, { usePushEach: true });
+}, { timestamps: true });
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("Friend", FriendSchema);

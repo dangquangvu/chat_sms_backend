@@ -60,7 +60,7 @@ var io = require("socket.io").listen(server, { origins: allowedOrigins });
 
 server.listen(port, err => {
     if (err) {
-        console.log(chalk.red("Cannot run!"));
+        console.log("Cannot run!");
     } else {
         // Socket event
         socketEvents(io);

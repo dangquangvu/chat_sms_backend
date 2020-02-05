@@ -52,8 +52,6 @@ module.exports = {
         }
     },
     getLogin: (req, res) => {
-        console.log(req.user);
-
         return res.status(200).json({
             message: req.user
         });
@@ -69,7 +67,7 @@ module.exports = {
                 // let indentify = User.findOne;
                 let user = await UserModel.findByEmail(email);
                 let comparePassword;
-                console.log(user);
+                // console.log(user);
                 if (!user) {
                     return res.status(400).json({ message: "Account didn't exists" });
                 }
@@ -123,10 +121,8 @@ module.exports = {
         };
         try {
             let admin = await UserModel.findByEmail("admin@gmail.com");
-            console.log(admin);
             if (!admin) {
                 let createUser = await UserModel.createUser(userInit);
-                console.log(createUser, 3456);
                 if (!createUser) {
                     return res.status(404).json({
                         message: "create user not success!"
@@ -161,7 +157,7 @@ module.exports = {
                     message: "error"
                 });
             }
-            console.log(user);
+            // console.log(user);
             return res.status(200).json({
                 user: user,
                 token: token
@@ -172,5 +168,11 @@ module.exports = {
         let data = await UserModel.findAll();
         console.log(data);
         return res.status(200).json({ data });
+    },
+    getMessage: async(req, res) => {
+        console.log(req.body);
+        return res.status(200).json({
+            message: "ok"
+        });
     }
 };

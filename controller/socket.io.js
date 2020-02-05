@@ -4,15 +4,19 @@ module.exports = io => {
     io.on("connection", socket => {
         console.log(socket.id);
         socket.on("disconnect", () => {
+            console.log(socket.id);
             let userId = userSockets[socket.id];
             delete userSockets[socket.id];
+            console.log("dis", userSockets);
             if (userId) {
                 io.sockets.emit("user-offline", userId);
             }
         });
         socket.on("online-ping", userId => {
             if (userId) {
+                console.log("online-ping");
                 userSockets[socket.id] = userId;
+                console.log(userSockets);
                 socket.broadcast.emit("user-online", userId);
                 setTimeout(function() {
                     // Send currently online users
