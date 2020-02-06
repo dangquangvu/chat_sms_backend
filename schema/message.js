@@ -14,6 +14,10 @@ const MessageSchema = new Schema({
     author: {
         type: Schema.Types.ObjectId,
         ref: "User"
+    },
+    nameAuthor: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true // createdAt will be our timestamp.

@@ -30,7 +30,7 @@ module.exports = {
                 if (err) {
                     return reject(err);
                 }
-                console.log(result);
+                //so sanh nguoi trong conversation
                 return resolve(result);
             });
         });

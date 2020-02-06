@@ -37,7 +37,8 @@ Content-Type: application/json
 {
     "conversationId": "5e3a8572fc96532a9462f0ec",
     "body": "aaa",
-    "author" : "5e2161e890cb1713bc601807"
+    "author" : "5e2161e890cb1713bc601807",
+    "nameAuthor": "admin"
 }
 
 ###
@@ -47,7 +48,8 @@ Content-Type: application/json
 {
     "conversationId": "5e3a8572fc96532a9462f0ec",
     "body": "bbb",
-    "author" : "5e215ed8134dd8176cc03f57"
+    "author" : "5e215ed8134dd8176cc03f57",
+    "nameAuthor": "dang quang vu"
 }
 
 
@@ -56,7 +58,15 @@ POST  http://localhost:3335/admin/conversation
 Content-Type: application/json
 
 {
-    "nameConversation": "dang quang vu",
-    "participants" : ["5e2161e890cb1713bc601807","5e215ed8134dd8176cc03f57"]
+    "nameConversation": "Dang Thi Ngoc Tram",
+    "participants" : ["5e21644290cb1713bc601808","5e215ed8134dd8176cc03f57"]
 }
 //5e3a8572fc96532a9462f0ec
+
+###
+POST  "http://localhost:3335/admin/conversationId"
+Content-Type: application/json
+
+{
+    "nameConversation": "dang quang vu"
+}

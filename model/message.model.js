@@ -17,9 +17,9 @@ module.exports = {
         if (!data) throw new Error("something bad happened");
         return data;
     },
-    findAll: async where => {
+    findAllCoversation: async where => {
         return new Promise((resolve, reject) => {
-            MessageSchema.find().exec((err, result) => {
+            MessageSchema.find({ conversationId: where }).exec((err, result) => {
                 if (err) {
                     return reject(err);
                 }

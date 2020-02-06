@@ -170,19 +170,17 @@ module.exports = {
         return res.status(200).json({ data });
     },
     getMessage: async(req, res) => {
-        console.log(req.body);
-        let conversationID = await ConversationModel.findByName(req.body);
-        let data = await MessageModel.findAll();
-
-        if (!data) {
-            return res.status(404).json({
-                message: "err",
-                conversationID: conversationID
+        console.log(req.body.conversationId);
+        let data = await MessageModel.findAllCoversation(req.body.conversationId);
+        if (data == null) {
+            return res.status(200).json({
+                message: [],
+                conversationID: req.body.conversationId
             });
         }
         return res.status(200).json({
             message: data,
-            conversationID: conversationID
+            conversationID: req.body.conversationId
         });
     },
     sendMessage: async(req, res) => {
@@ -202,6 +200,14 @@ module.exports = {
         let data = await ConversationModel.createConversation(req.body);
         return res.status(200).json({
             message: "ok"
+        });
+    },
+    getConversationId: async(req, res) => {
+        // console.log(req.body);
+        let conversationID = await ConversationModel.findByName(req.body);
+        console.log(conversationID);
+        return res.status(200).json({
+            conversationID: conversationID._id
         });
     }
 };
