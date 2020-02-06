@@ -1,10 +1,9 @@
-const { UserSchema } = require("../schema");
-//= require('../schemas/index');
+const { ConversationSchema } = require("../schema");
 
 module.exports = {
     count: function(where) {
         return new Promise(resolve => {
-            UserSchema.countDocuments(where).exec((err, result) => {
+            ConversationSchema.countDocuments(where).exec((err, result) => {
                 if (err) {
                     return resolve(0);
                 }
@@ -13,9 +12,9 @@ module.exports = {
         });
     },
 
-    findByEmail: function(where) {
+    findById: function(where) {
         return new Promise((resolve, reject) => {
-            UserSchema.findOne({ email: where }).exec((err, result) => {
+            ConversationSchema.findOne({ _id: where }).exec((err, result) => {
                 if (err) {
                     return reject(err);
                 }
@@ -23,16 +22,29 @@ module.exports = {
             });
         });
     },
+    findByName: function(where) {
+        return new Promise((resolve, reject) => {
+            ConversationSchema.findOne({ nameConversation: where }).exec(
+                (err, result) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve(result);
+                }
+            );
+        });
+    },
 
-    createUser: async function(where) {
-        let user = new UserSchema(where);
+    createConversation: async function(where) {
+        let user = new ConversationSchema(where);
         let data = await user.save();
         if (!data) throw new Error("something bad happened");
         return data;
     },
+
     findAll: () => {
         return new Promise((resolve, reject) => {
-            UserSchema.find().exec((err, result) => {
+            ConversationSchema.find().exec((err, result) => {
                 if (err) {
                     return reject(err);
                 }

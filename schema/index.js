@@ -1,6 +1,6 @@
 module.exports = {
-    User: require("./user.schema"),
-    Conversation: require("./conversation"),
-    Message: require("./message"),
-    Friend: require("./friend.schema")
+    UserSchema: require("./user.schema"),
+    ConversationSchema: require("./conversation"),
+    MessageSchema: require("./message"),
+    FriendSchema: require("./friend.schema")
 };

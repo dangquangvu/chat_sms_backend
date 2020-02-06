@@ -1,7 +1,7 @@
 // const { User } = require("../schema/index");
 const auth = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
-const { UserModel } = require("../model");
+const { UserModel, ConversationModel, MessageModel } = require("../model");
 
 const arrUser = [{
         fullname: "dang quang vu",
@@ -171,6 +171,24 @@ module.exports = {
     },
     getMessage: async(req, res) => {
         console.log(req.body);
+        let conversationID = await ConversationModel.findByName(
+            req.body.nameConversation
+        );
+        await MessageModel.findById;
+        return res.status(200).json({
+            message: "ok"
+        });
+    },
+    sendMessage: async(req, res) => {
+        console.log(req.body);
+        let data = await MessageModel.save(req.body);
+        return res.status(200).json({
+            message: "ok"
+        });
+    },
+    setConversation: async(req, res) => {
+        console.log(req.body);
+        let data = await ConversationModel.createConversation(req.body);
         return res.status(200).json({
             message: "ok"
         });
