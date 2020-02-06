@@ -24,14 +24,15 @@ module.exports = {
     },
     findByName: function(where) {
         return new Promise((resolve, reject) => {
-            ConversationSchema.findOne({ nameConversation: where }).exec(
-                (err, result) => {
-                    if (err) {
-                        return reject(err);
-                    }
-                    return resolve(result);
+            ConversationSchema.findOne({
+                nameConversation: where.nameConversation
+            }).exec((err, result) => {
+                if (err) {
+                    return reject(err);
                 }
-            );
+                console.log(result);
+                return resolve(result);
+            });
         });
     },
 

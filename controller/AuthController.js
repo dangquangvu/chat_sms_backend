@@ -171,17 +171,28 @@ module.exports = {
     },
     getMessage: async(req, res) => {
         console.log(req.body);
-        let conversationID = await ConversationModel.findByName(
-            req.body.nameConversation
-        );
-        await MessageModel.findById;
+        let conversationID = await ConversationModel.findByName(req.body);
+        let data = await MessageModel.findAll();
+
+        if (!data) {
+            return res.status(404).json({
+                message: "err",
+                conversationID: conversationID
+            });
+        }
         return res.status(200).json({
-            message: "ok"
+            message: data,
+            conversationID: conversationID
         });
     },
     sendMessage: async(req, res) => {
         console.log(req.body);
         let data = await MessageModel.save(req.body);
+        if (!data) {
+            return res.status(404).json({
+                message: "err"
+            });
+        }
         return res.status(200).json({
             message: "ok"
         });

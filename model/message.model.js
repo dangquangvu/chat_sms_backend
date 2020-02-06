@@ -2,11 +2,13 @@ const { MessageSchema } = require("../schema");
 
 module.exports = {
     findById: async where => {
-        MessageSchema.findOne({ _id: where }).exec((err, result) => {
-            if (err) {
-                return reject(err);
-            }
-            return resolve(result);
+        return new Promise((resolve, reject) => {
+            MessageSchema.findOne({ _id: where }).exec((err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     },
     save: async where => {
@@ -14,5 +16,15 @@ module.exports = {
         let data = await mess.save();
         if (!data) throw new Error("something bad happened");
         return data;
+    },
+    findAll: async where => {
+        return new Promise((resolve, reject) => {
+            MessageSchema.find().exec((err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
+        });
     }
 };
