@@ -30,8 +30,9 @@ module.exports = io => {
         socket.on("leave-conversation", conversation => {
             socket.leave(conversation);
         });
-        socket.on("send-message", function(message) {
-            socket.broadcast.to(message.conversationId).emit("new-message", message);
+        socket.on("send_message", function(message) {
+            console.log("send_message", message.conversationId);
+            socket.broadcast.emit("new-message", message);
         });
     });
 };
