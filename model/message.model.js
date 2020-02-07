@@ -19,12 +19,15 @@ module.exports = {
     },
     findAllCoversation: async where => {
         return new Promise((resolve, reject) => {
-            MessageSchema.find({ conversationId: where }).exec((err, result) => {
-                if (err) {
-                    return reject(err);
-                }
-                return resolve(result);
-            });
+            MessageSchema.find({ conversationId: where })
+                .sort({ createdAt: 1 })
+                .exec((err, result) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    console.log(result);
+                    return resolve(result);
+                });
         });
     }
 };

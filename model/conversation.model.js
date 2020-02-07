@@ -22,14 +22,17 @@ module.exports = {
             });
         });
     },
+    //where.arrPartner
     findByName: function(where) {
+        console.log(where);
         return new Promise((resolve, reject) => {
             ConversationSchema.findOne({
-                nameConversation: where.nameConversation
+                participants: { $all: where }
             }).exec((err, result) => {
                 if (err) {
                     return reject(err);
                 }
+                // console.log(result, 1111);
                 //so sanh nguoi trong conversation
                 return resolve(result);
             });

@@ -184,8 +184,8 @@ module.exports = {
         });
     },
     sendMessage: async(req, res) => {
-        console.log(req.body);
-        let data = await MessageModel.save(req.body);
+        console.log(req.body.message);
+        let data = await MessageModel.save(req.body.message);
         if (!data) {
             return res.status(404).json({
                 message: "err"
@@ -203,11 +203,12 @@ module.exports = {
         });
     },
     getConversationId: async(req, res) => {
-        // console.log(req.body);
-        let conversationID = await ConversationModel.findByName(req.body);
-        console.log(conversationID);
+        // console.log(req.body.arrPartner);
+        let data = await ConversationModel.findByName(req.body.arrPartner);
+        //console.log(data._id);
+
         return res.status(200).json({
-            conversationID: conversationID._id
+            conversationID: data._id
         });
     }
 };

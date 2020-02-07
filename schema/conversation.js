@@ -8,7 +8,7 @@ const ConversationSchema = new Schema({
         type: String,
         default: ""
     },
-    participants: [{ type: Schema.Types.ObjectId, ref: "User" }]
+    participants: [{ type: Schema.Types.ObjectId, default: "" }]
 });
 
 module.exports = mongoose.model("Conversation", ConversationSchema);

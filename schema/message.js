@@ -23,6 +23,7 @@ const MessageSchema = new Schema({
     timestamps: true // createdAt will be our timestamp.
 });
 
-MessageSchema.index({ conversationId: -1, timestamps: -1, body: -1 });
+MessageSchema.index({ timestamps: -1, body: -1 });
+MessageSchema.index({ conversationId: -1 });
 
 module.exports = mongoose.model("Message", MessageSchema);

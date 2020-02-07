@@ -27,11 +27,11 @@ Content-Type: application/json
 }
 
 ###
-POST  http://localhost:3335/admin/get_message
+POST  http://localhost:3335/message/get_message
 Content-Type: application/json
 
 ###
-POST  http://localhost:3335/admin/send_message
+POST  http://localhost:3335/message/send_message
 Content-Type: application/json
 
 {
@@ -42,29 +42,31 @@ Content-Type: application/json
 }
 
 ###
-POST  http://localhost:3335/admin/send_message
+POST  http://localhost:3335/message/send_message
 Content-Type: application/json
 
 {
     "conversationId": "5e3a8572fc96532a9462f0ec",
     "body": "bbb",
     "author" : "5e215ed8134dd8176cc03f57",
-    "nameAuthor": "dang quang vu"
+    "nameAuthor": "dang quang vu",
+    "createdAt" :"2020-02-07T03:58:40Z",
+    "updatedAt" : "2020-02-07T03:58:40Z"
 }
 
 
 ###
-POST  http://localhost:3335/admin/conversation
+POST  http://localhost:3335/conversation/conversation
 Content-Type: application/json
 
 {
     "nameConversation": "Dang Thi Ngoc Tram",
-    "participants" : ["5e21644290cb1713bc601808","5e215ed8134dd8176cc03f57"]
+    "participants" : ["5e21644290cb1713bc601808","5e2161e890cb1713bc601807"]
 }
 //5e3a8572fc96532a9462f0ec
 
 ###
-POST  "http://localhost:3335/admin/conversationId"
+POST  "http://localhost:3335/conversation/conversationId"
 Content-Type: application/json
 
 {
